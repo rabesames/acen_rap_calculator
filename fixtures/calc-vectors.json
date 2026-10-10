@@ -1,0 +1,418 @@
+{
+ "_readme": "SYNTHETIC test inputs, invented for testing. Not Meralco rates. Never use as defaults or placeholders in the UI.",
+ "offer": {
+  "discountA": "0.20",
+  "fixedB": "6.25",
+  "termYears": 2
+ },
+ "crossoverRate": 7.8125,
+ "moneyTolerance": 0.01,
+ "cases": [
+  {
+   "name": "no-solar-mixed-rates",
+   "note": "Rates above the crossover, between 6.25 and the crossover, and below 6.25 (negative B month kept in total).",
+   "input": [
+    {
+     "period": "2026-01",
+     "importKwh": "412",
+     "genRate": "8.4120",
+     "vatRate": "0.12"
+    },
+    {
+     "period": "2026-02",
+     "importKwh": "388",
+     "genRate": "7.1055",
+     "vatRate": "0.12"
+    },
+    {
+     "period": "2026-03",
+     "importKwh": "455",
+     "genRate": "5.9800",
+     "vatRate": "0.12"
+    }
+   ],
+   "expected": {
+    "months": [
+     {
+      "period": "2026-01",
+      "expectedGenAmount": 3465.74,
+      "aBeforeVat": 693.15,
+      "aInclVat": 776.33,
+      "bConservative": 890.74,
+      "bVatOnTop": 997.63,
+      "bVatInside": 1306.63,
+      "bBeatsA": true,
+      "creditsLost": 0.0
+     },
+     {
+      "period": "2026-02",
+      "expectedGenAmount": 2756.93,
+      "aBeforeVat": 551.39,
+      "aInclVat": 617.55,
+      "bConservative": 331.93,
+      "bVatOnTop": 371.77,
+      "bVatInside": 662.77,
+      "bBeatsA": false,
+      "creditsLost": 0.0
+     },
+     {
+      "period": "2026-03",
+      "expectedGenAmount": 2720.9,
+      "aBeforeVat": 544.18,
+      "aInclVat": 609.48,
+      "bConservative": -122.85,
+      "bVatOnTop": -137.59,
+      "bVatInside": 203.66,
+      "bBeatsA": false,
+      "creditsLost": 0.0
+     }
+    ],
+    "monthsUsed": 3,
+    "monthsBAboveCrossover": 1,
+    "totals": {
+     "aBeforeVat": 1788.72,
+     "aInclVat": 2003.36,
+     "bConservative": 1099.82,
+     "bVatOnTop": 1231.81,
+     "bVatInside": 2173.06,
+     "creditsLost": 0.0,
+     "importKwh": 1255.0
+    },
+    "annualised": {
+     "aBeforeVat": 7154.88,
+     "aInclVat": 8013.44,
+     "bConservative": 4399.28,
+     "bVatOnTop": 4927.24,
+     "bVatInside": 8692.24,
+     "creditsLost": 0.0
+    },
+    "netOfCredits": {
+     "aBeforeVat": 1788.72,
+     "aInclVat": 2003.36,
+     "bConservative": 1099.82,
+     "bVatOnTop": 1231.81,
+     "bVatInside": 2173.06
+    },
+    "netOfCreditsAnnualised": {
+     "aBeforeVat": 7154.88,
+     "aInclVat": 8013.44,
+     "bConservative": 4399.28,
+     "bVatOnTop": 4927.24,
+     "bVatInside": 8692.24
+    },
+    "annualisedAtLatestRates": {
+     "aBeforeVat": 6003.92,
+     "aInclVat": 6724.36,
+     "bConservative": -1355.4,
+     "bVatOnTop": -1518.04,
+     "bVatInside": 2246.96,
+     "creditsLost": 0.0
+    }
+   }
+  },
+  {
+   "name": "solar-heavy-export",
+   "note": "Exports large enough that joining loses money under both options.",
+   "input": [
+    {
+     "period": "2026-04",
+     "importKwh": "210",
+     "genRate": "7.9500",
+     "vatRate": "0.12",
+     "exportKwh": "180",
+     "exportRate": "6.1000"
+    },
+    {
+     "period": "2026-05",
+     "importKwh": "260",
+     "genRate": "8.2000",
+     "vatRate": "0.12",
+     "exportKwh": "150",
+     "exportRate": "6.4500"
+    }
+   ],
+   "expected": {
+    "months": [
+     {
+      "period": "2026-04",
+      "expectedGenAmount": 1669.5,
+      "aBeforeVat": 333.9,
+      "aInclVat": 373.97,
+      "bConservative": 357.0,
+      "bVatOnTop": 399.84,
+      "bVatInside": 557.34,
+      "bBeatsA": true,
+      "creditsLost": 1098.0,
+      "exportShare": 0.8571,
+      "breakEvenShareA": 0.2607,
+      "breakEvenShareB": 0.2787
+     },
+     {
+      "period": "2026-05",
+      "expectedGenAmount": 2132.0,
+      "aBeforeVat": 426.4,
+      "aInclVat": 477.57,
+      "bConservative": 507.0,
+      "bVatOnTop": 567.84,
+      "bVatInside": 762.84,
+      "bBeatsA": true,
+      "creditsLost": 967.5,
+      "exportShare": 0.5769,
+      "breakEvenShareA": 0.2543,
+      "breakEvenShareB": 0.3023
+     }
+    ],
+    "monthsUsed": 2,
+    "monthsBAboveCrossover": 2,
+    "totals": {
+     "aBeforeVat": 760.3,
+     "aInclVat": 851.54,
+     "bConservative": 864.0,
+     "bVatOnTop": 967.68,
+     "bVatInside": 1320.18,
+     "creditsLost": 2065.5,
+     "importKwh": 470.0
+    },
+    "annualised": {
+     "aBeforeVat": 4561.8,
+     "aInclVat": 5109.24,
+     "bConservative": 5184.0,
+     "bVatOnTop": 5806.08,
+     "bVatInside": 7921.08,
+     "creditsLost": 12393.0
+    },
+    "netOfCredits": {
+     "aBeforeVat": -1305.2,
+     "aInclVat": -1213.96,
+     "bConservative": -1201.5,
+     "bVatOnTop": -1097.82,
+     "bVatInside": -745.32
+    },
+    "netOfCreditsAnnualised": {
+     "aBeforeVat": -7831.2,
+     "aInclVat": -7283.76,
+     "bConservative": -7209.0,
+     "bVatOnTop": -6586.92,
+     "bVatInside": -4471.92
+    },
+    "annualisedAtLatestRates": {
+     "aBeforeVat": 4624.8,
+     "aInclVat": 5179.8,
+     "bConservative": 5499.0,
+     "bVatOnTop": 6158.88,
+     "bVatInside": 8273.88,
+     "creditsLost": 12771.0
+    }
+   }
+  },
+  {
+   "name": "solar-light-export",
+   "note": "Small exports; joining still comes out ahead.",
+   "input": [
+    {
+     "period": "2026-06",
+     "importKwh": "640",
+     "genRate": "8.6000",
+     "vatRate": "0.12",
+     "exportKwh": "40",
+     "exportRate": "6.3000"
+    }
+   ],
+   "expected": {
+    "months": [
+     {
+      "period": "2026-06",
+      "expectedGenAmount": 5504.0,
+      "aBeforeVat": 1100.8,
+      "aInclVat": 1232.9,
+      "bConservative": 1504.0,
+      "bVatOnTop": 1684.48,
+      "bVatInside": 2164.48,
+      "bBeatsA": true,
+      "creditsLost": 252.0,
+      "exportShare": 0.0625,
+      "breakEvenShareA": 0.273,
+      "breakEvenShareB": 0.373
+     }
+    ],
+    "monthsUsed": 1,
+    "monthsBAboveCrossover": 1,
+    "totals": {
+     "aBeforeVat": 1100.8,
+     "aInclVat": 1232.9,
+     "bConservative": 1504.0,
+     "bVatOnTop": 1684.48,
+     "bVatInside": 2164.48,
+     "creditsLost": 252.0,
+     "importKwh": 640.0
+    },
+    "annualised": {
+     "aBeforeVat": 13209.6,
+     "aInclVat": 14794.8,
+     "bConservative": 18048.0,
+     "bVatOnTop": 20213.76,
+     "bVatInside": 25973.76,
+     "creditsLost": 3024.0
+    },
+    "netOfCredits": {
+     "aBeforeVat": 848.8,
+     "aInclVat": 980.9,
+     "bConservative": 1252.0,
+     "bVatOnTop": 1432.48,
+     "bVatInside": 1912.48
+    },
+    "netOfCreditsAnnualised": {
+     "aBeforeVat": 10185.6,
+     "aInclVat": 11770.8,
+     "bConservative": 15024.0,
+     "bVatOnTop": 17189.76,
+     "bVatInside": 22949.76
+    },
+    "annualisedAtLatestRates": {
+     "aBeforeVat": 13209.6,
+     "aInclVat": 14794.8,
+     "bConservative": 18048.0,
+     "bVatOnTop": 20213.76,
+     "bVatInside": 25973.76,
+     "creditsLost": 3024.0
+    }
+   }
+  },
+  {
+   "name": "edge-rate-equals-fixed",
+   "note": "G exactly 6.25: B conservative is zero; VAT-inside case still positive. Non-12% VAT to prove V is read, not assumed.",
+   "input": [
+    {
+     "period": "2026-07",
+     "importKwh": "300",
+     "genRate": "6.2500",
+     "vatRate": "0.1085"
+    }
+   ],
+   "expected": {
+    "months": [
+     {
+      "period": "2026-07",
+      "expectedGenAmount": 1875.0,
+      "aBeforeVat": 375.0,
+      "aInclVat": 415.69,
+      "bConservative": 0.0,
+      "bVatOnTop": 0.0,
+      "bVatInside": 203.44,
+      "bBeatsA": false,
+      "creditsLost": 0.0
+     }
+    ],
+    "monthsUsed": 1,
+    "monthsBAboveCrossover": 0,
+    "totals": {
+     "aBeforeVat": 375.0,
+     "aInclVat": 415.69,
+     "bConservative": 0.0,
+     "bVatOnTop": 0.0,
+     "bVatInside": 203.44,
+     "creditsLost": 0.0,
+     "importKwh": 300.0
+    },
+    "annualised": {
+     "aBeforeVat": 4500.0,
+     "aInclVat": 4988.28,
+     "bConservative": 0.0,
+     "bVatOnTop": 0.0,
+     "bVatInside": 2441.28,
+     "creditsLost": 0.0
+    },
+    "netOfCredits": {
+     "aBeforeVat": 375.0,
+     "aInclVat": 415.69,
+     "bConservative": 0.0,
+     "bVatOnTop": 0.0,
+     "bVatInside": 203.44
+    },
+    "netOfCreditsAnnualised": {
+     "aBeforeVat": 4500.0,
+     "aInclVat": 4988.28,
+     "bConservative": 0.0,
+     "bVatOnTop": 0.0,
+     "bVatInside": 2441.28
+    },
+    "annualisedAtLatestRates": {
+     "aBeforeVat": 4500.0,
+     "aInclVat": 4988.28,
+     "bConservative": 0.0,
+     "bVatOnTop": 0.0,
+     "bVatInside": 2441.28,
+     "creditsLost": 0.0
+    }
+   }
+  },
+  {
+   "name": "edge-rate-at-crossover",
+   "note": "G exactly 7.8125: A before VAT equals B conservative; bBeatsA is false (strictly above only).",
+   "input": [
+    {
+     "period": "2026-08",
+     "importKwh": "500",
+     "genRate": "7.8125",
+     "vatRate": "0.12"
+    }
+   ],
+   "expected": {
+    "months": [
+     {
+      "period": "2026-08",
+      "expectedGenAmount": 3906.25,
+      "aBeforeVat": 781.25,
+      "aInclVat": 875.0,
+      "bConservative": 781.25,
+      "bVatOnTop": 875.0,
+      "bVatInside": 1250.0,
+      "bBeatsA": false,
+      "creditsLost": 0.0
+     }
+    ],
+    "monthsUsed": 1,
+    "monthsBAboveCrossover": 0,
+    "totals": {
+     "aBeforeVat": 781.25,
+     "aInclVat": 875.0,
+     "bConservative": 781.25,
+     "bVatOnTop": 875.0,
+     "bVatInside": 1250.0,
+     "creditsLost": 0.0,
+     "importKwh": 500.0
+    },
+    "annualised": {
+     "aBeforeVat": 9375.0,
+     "aInclVat": 10500.0,
+     "bConservative": 9375.0,
+     "bVatOnTop": 10500.0,
+     "bVatInside": 15000.0,
+     "creditsLost": 0.0
+    },
+    "netOfCredits": {
+     "aBeforeVat": 781.25,
+     "aInclVat": 875.0,
+     "bConservative": 781.25,
+     "bVatOnTop": 875.0,
+     "bVatInside": 1250.0
+    },
+    "netOfCreditsAnnualised": {
+     "aBeforeVat": 9375.0,
+     "aInclVat": 10500.0,
+     "bConservative": 9375.0,
+     "bVatOnTop": 10500.0,
+     "bVatInside": 15000.0
+    },
+    "annualisedAtLatestRates": {
+     "aBeforeVat": 9375.0,
+     "aInclVat": 10500.0,
+     "bConservative": 9375.0,
+     "bVatOnTop": 10500.0,
+     "bVatInside": 15000.0,
+     "creditsLost": 0.0
+    }
+   }
+  }
+ ]
+}

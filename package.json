@@ -1,0 +1,21 @@
+{
+  "name": "acen-rap-calculator",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "bills:dump": "node tools/dump-bill-text.mjs",
+    "bills:expected": "node -e \"process.env.UPDATE_BILL_EXPECTED='1';require('child_process').execSync('npx vitest run tests/bill-fixtures.test.ts',{stdio:'inherit',env:process.env})\""
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "pdfjs-dist": "6.4.299",
+    "typescript": "7.0.2",
+    "vite": "8.3.2",
+    "vite-plugin-singlefile": "2.3.3",
+    "vitest": "5.0.3"
+  }
+}
