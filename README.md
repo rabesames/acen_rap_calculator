@@ -1,6 +1,9 @@
 # ACEN RAP household calculator: handoff pack
 
-Starting point for a Claude Code project. Nothing is built yet.
+Live page: https://claude.ai/artifact/FNq7a8fa8MmeWqyaAFYdAB
+
+Built through milestone 4 of `docs/SPEC.md`. `npm run build` writes `dist/index.html`
+(opens on its own) and `dist/artifact.html` (the copy published as the Claude artifact).
 
 | File | What it is |
 |---|---|

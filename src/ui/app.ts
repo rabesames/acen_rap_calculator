@@ -12,6 +12,18 @@ import { monthForm, type MonthForm } from './monthForm';
 import { pdfImport } from './pdfImport';
 import { resultsContent } from './results';
 
+/**
+ * A published Claude artifact runs inside a frame that cannot open the print dialog,
+ * so the print button is offered only when the page is opened on its own.
+ */
+const canPrint = (() => {
+  try {
+    return window.self === window.top;
+  } catch {
+    return false;
+  }
+})();
+
 /** Build the page. Returns the function that redraws everything that depends on the entries. */
 function mountApp(root: HTMLElement, store: Store, remount: () => void): () => void {
   let form: MonthForm | null = null;
@@ -194,7 +206,7 @@ function mountApp(root: HTMLElement, store: Store, remount: () => void): () => v
       'div',
       { class: 'actions' },
       h('button', { type: 'button', class: 'primary', onclick: () => void copySummary() }, 'Copy summary as text'),
-      h('button', { type: 'button', onclick: () => window.print() }, 'Print or save as PDF'),
+      canPrint ? h('button', { type: 'button', onclick: () => window.print() }, 'Print or save as PDF') : null,
     ),
     shareStatus,
     copyFallback,
@@ -210,7 +222,9 @@ function mountApp(root: HTMLElement, store: Store, remount: () => void): () => v
     h(
       'p',
       {},
-      'Saved entries can disappear if the browser clears site data, so copy or print the summary to keep it.',
+      canPrint
+        ? 'Saved entries can disappear if the browser clears site data, so copy or print the summary to keep it.'
+        : 'Saved entries can disappear if the browser clears site data, so copy the summary to keep it.',
     ),
     h('h3', {}, 'Not yet answered by ACEN'),
     h('ol', {}, ...OPEN_QUESTIONS.map((q) => h('li', {}, q))),

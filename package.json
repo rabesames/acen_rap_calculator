@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node tools/make-artifact.mjs",
     "test": "vitest run",
     "bills:dump": "node tools/dump-bill-text.mjs",
     "bills:expected": "node -e \"process.env.UPDATE_BILL_EXPECTED='1';require('child_process').execSync('npx vitest run tests/bill-fixtures.test.ts',{stdio:'inherit',env:process.env})\""
